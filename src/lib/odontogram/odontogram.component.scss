@@ -1,0 +1,101 @@
+/*
+ * Styles ported from react-odontogram's styles.css (MIT License,
+ * Copyright (c) Pratik Sharma / biomathcode).
+ *
+ * View encapsulation is disabled so the rules can style the tooth child
+ * components; everything is scoped under the `.Odontogram` host class.
+ */
+
+.Odontogram {
+  --odontogram-tooltip-bg: rgba(0, 0, 0, 0.85);
+  --odontogram-tooltip-fg: #fff;
+
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.Odontogram.dark-theme {
+  --odontogram-tooltip-bg: rgba(255, 255, 255, 0.95);
+  --odontogram-tooltip-fg: #000;
+}
+
+.Odontogram.dark-theme svg {
+  background-color: #0b0d1a;
+  color-scheme: dark;
+  color: #e4e6ef;
+}
+
+.Odontogram svg {
+  width: 100%;
+  height: auto;
+  user-select: none;
+  touch-action: manipulation;
+  color: var(--base-blue);
+  fill: none;
+  transition: all ease-in 125ms;
+}
+
+.Odontogram[data-read-only='true'] {
+  pointer-events: none;
+}
+
+.Odontogram svg path:nth-of-type(2) {
+  opacity: 0;
+  transition: all ease-in 200ms;
+}
+
+.Odontogram svg path[data-colored='true'] {
+  opacity: 1 !important;
+  transition: none;
+}
+
+.Odontogram g.selected path:nth-of-type(2) {
+  fill: var(--light-blue);
+  opacity: 1;
+}
+
+.Odontogram g.selected path:first-of-type {
+  transition: stroke 1s ease;
+}
+
+.Odontogram g.selected:hover path:first-of-type {
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 4 4;
+  stroke-dashoffset: 0;
+  transition: stroke 5s ease;
+  animation: odontogram-dash-move 1s linear infinite;
+  animation-delay: 1s;
+  filter: drop-shadow(0 0 8px currentColor);
+  -webkit-filter: drop-shadow(0 0 8px currentColor);
+}
+
+@keyframes odontogram-dash-move {
+  to {
+    stroke-dashoffset: 8;
+  }
+}
+
+.Odontogram g.selected {
+  transition: all 0.3s ease;
+  color: var(--dark-blue);
+}
+
+.Odontogram g.selected path {
+  stroke-width: 1.5;
+}
+
+.Odontogram g.odontogram-tooth:hover path:nth-of-type(2) {
+  fill: var(--light-blue);
+  opacity: 1;
+}
+
+.Odontogram g[role='option']:focus-visible {
+  outline: 4px solid var(--dark-blue) !important;
+}

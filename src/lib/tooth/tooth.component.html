@@ -1,0 +1,28 @@
+<svg:title>{{ displayName() }}</svg:title>
+
+<!-- outline -->
+<svg:path
+  [attr.stroke]="strokeColor()"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  [attr.d]="outlinePath()"
+/>
+
+<!-- fill -->
+<svg:path
+  [attr.fill]="fillColor()"
+  [attr.d]="shadowPath()"
+  [attr.data-colored]="condition() ? 'true' : null"
+  [style.opacity]="condition() ? 1 : null"
+/>
+
+<!-- highlight lines -->
+@for (d of highlightPaths(); track d) {
+  <svg:path
+    [attr.stroke]="strokeColor()"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    [attr.d]="d"
+  />
+}

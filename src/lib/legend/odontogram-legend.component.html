@@ -1,0 +1,15 @@
+@if (conditions()?.length) {
+  <ul class="odontogram-legend" aria-label="Tooth condition legend">
+    @for (condition of conditions(); track condition.label) {
+      <li>
+        <span
+          class="odontogram-legend-swatch"
+          aria-hidden="true"
+          [style.background]="condition.fillColor"
+          [style.border-color]="condition.outlineColor || condition.fillColor"
+        ></span>
+        <span class="odontogram-legend-label">{{ condition.label }}</span>
+      </li>
+    }
+  </ul>
+}

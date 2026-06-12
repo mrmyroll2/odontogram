@@ -1,0 +1,15 @@
+@if (contentTemplate(); as template) {
+  <ng-container [ngTemplateOutlet]="template" [ngTemplateOutletContext]="templateContext()" />
+} @else if (contentText(); as text) {
+  <div>{{ text }}</div>
+} @else {
+  <div>Tooth: {{ payload().notations.fdi }}</div>
+  <div>Type: {{ payload().type }}</div>
+  <div>Universal: {{ payload().notations.universal }}, Palmer: {{ payload().notations.palmer }}</div>
+}
+
+<div
+  class="odontogram-tooltip-arrow"
+  [class.odontogram-tooltip-arrow--bottom]="coords()?.isBottomPlacement"
+  aria-hidden="true"
+></div>

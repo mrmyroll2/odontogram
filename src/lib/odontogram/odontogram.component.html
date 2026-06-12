@@ -1,0 +1,44 @@
+<input type="hidden" [name]="name()" [value]="selectedJson()" />
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  [attr.viewBox]="viewBox()"
+  class="Odontogram"
+>
+  <title>Odontogram</title>
+
+  @for (quadrant of visibleQuadrants(); track quadrant.name; let quadrantIndex = $index) {
+    <svg:g [attr.transform]="quadrant.transform">
+      @for (tooth of filteredTeeth(); track tooth.name) {
+        @let toothId = 'teeth-' + (quadrantIndex + 1) + tooth.name;
+        <svg:g
+          ngOdontogramTooth
+          [toothId]="toothId"
+          [displayName]="displayName(toothId)"
+          [outlinePath]="tooth.outlinePath"
+          [shadowPath]="tooth.shadowPath"
+          [lineHighlightPath]="tooth.lineHighlightPath"
+          [selected]="selected().has(toothId)"
+          [condition]="conditionMap().get(toothId)"
+          [readOnly]="readOnly()"
+          (toggled)="handleToggle($event)"
+          (hovered)="showTooltip() && handleHover($event)"
+          (left)="showTooltip() && handleLeave()"
+        />
+      }
+    </svg:g>
+  }
+</svg>
+
+@if (showTooltip() && tooltipState().active && tooltipState().payload; as payload) {
+  <ng-odontogram-tooltip
+    [payload]="payload"
+    [position]="tooltipState().position"
+    [content]="tooltip().content"
+  />
+}
+
+@if (showLabels()) {
+  <ng-odontogram-legend [conditions]="teethConditions()" />
+}

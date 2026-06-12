@@ -6,6 +6,10 @@
 /out-tsc
 /bazel-out
 
+# Storybook
+/storybook-static
+*storybook.log
+
 # Node
 /node_modules
 npm-debug.log
