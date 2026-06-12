@@ -31,6 +31,8 @@ interface OdontogramStoryArgs {
   layout: OdontogramLayout;
   /** Story-only knob: width of the wrapper around the chart. */
   maxWidth: string;
+  /** Story-only knob: pop up an alert with the selection, like the React demo. */
+  alertOnChange: boolean;
 }
 
 const SAMPLE_CONDITIONS: ToothConditionGroup[] = [
@@ -65,7 +67,12 @@ const meta: Meta<OdontogramStoryArgs> = {
     // renderer drops function-valued args before they reach the template.
     props: {
       ...args,
-      selectionChange: (selected: ToothDetail[]) => action('selectionChange')(selected),
+      selectionChange: (selected: ToothDetail[]) => {
+        action('selectionChange')(selected);
+        if (args.alertOnChange) {
+          window.alert(`Selected teeth:\n${JSON.stringify(selected, null, 2)}`);
+        }
+      },
       selectedIdsChange: (ids: string[]) => action('selectedIdsChange')(ids),
     },
     template: `
@@ -109,6 +116,7 @@ const meta: Meta<OdontogramStoryArgs> = {
     showLabels: false,
     layout: 'circle',
     maxWidth: '340px',
+    alertOnChange: false,
   },
   argTypes: {
     theme: { control: 'radio', options: ['light', 'dark'] },
@@ -124,6 +132,7 @@ const meta: Meta<OdontogramStoryArgs> = {
     showLabels: { control: 'boolean' },
     maxTeeth: { control: { type: 'number', min: 0, max: 8 } },
     maxWidth: { control: 'text' },
+    alertOnChange: { control: 'boolean' },
   },
 };
 
