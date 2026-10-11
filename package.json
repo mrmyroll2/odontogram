@@ -45,6 +45,6 @@
     "jsdom": "^27.1.0",
     "storybook": "^10.4.4",
     "typescript": "~6.0.3",
-    "vitest": "^4.0.8"
+    "vitest": "^4.1.11"
   }
 }
